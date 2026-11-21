@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="color-scheme" content="dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- ===== SEO =====
+       Replace every https://YOUR-DOMAIN.com/ in this file, robots.txt and
+       sitemap.xml with your real address once the site is online. -->
+  <title>Focus Timer — Fullscreen Visual Countdown &amp; Pomodoro Timer</title>
+  <meta name="description" content="Free fullscreen focus timer. Pick a time and a color, then watch the color shrink as time passes. Pomodoro presets, landscape mode on phones, no sign-up.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="application-name" content="Focus Timer">
+  <meta name="apple-mobile-web-app-title" content="Focus Timer">
+  <link rel="canonical" href="https://YOUR-DOMAIN.com/">
+
+  <!-- Icons -->
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Social sharing (WhatsApp, Facebook, LinkedIn, X, Slack…) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Focus Timer">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://YOUR-DOMAIN.com/">
+  <meta property="og:title" content="Focus Timer — Fullscreen Visual Countdown Timer">
+  <meta property="og:description" content="Pick a time and a color, then watch the color shrink as time passes. A free, distraction-free timer for study and deep work.">
+  <meta property="og:image" content="https://YOUR-DOMAIN.com/icons/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A yellow and black screen showing 25:00, with the yellow shrinking to the left.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Focus Timer — Fullscreen Visual Countdown Timer">
+  <meta name="twitter:description" content="Pick a time and a color, then watch the color shrink as time passes.">
+  <meta name="twitter:image" content="https://YOUR-DOMAIN.com/icons/og-image.png">
+
+  <!-- Structured data: tells Google this is a free web app, and feeds the FAQ below -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Focus Timer",
+        "url": "https://YOUR-DOMAIN.com/",
+        "description": "A free fullscreen focus timer. The chosen color shrinks from right to left as time passes, leaving the screen black when time is up.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Works in any modern browser.",
+        "image": "https://YOUR-DOMAIN.com/icons/og-image.png",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+          "Preset durations from 5 to 60 minutes",
+          "Custom hours, minutes and seconds",
+          "Custom background color",
+          "Fullscreen and landscape mode",
+          "Optional completion sound"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is Focus Timer free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is completely free, with no sign-up and nothing to install." } },
+          { "@type": "Question", "name": "Can I use it as a Pomodoro timer?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Pick the 25 minute preset for a focus block and the 5 minute preset for a break." } },
+          { "@type": "Question", "name": "Does it work on my phone?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. On Android it goes fullscreen and turns to landscape automatically. On iPhone, rotate your phone sideways for the landscape view." } },
+          { "@type": "Question", "name": "Does the timer stay accurate if I switch tabs?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The timer is based on the clock, not on counting ticks, so it stays correct when you pause, switch tabs or lock your screen." } },
+          { "@type": "Question", "name": "Can I turn off the sound?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Completion sound switch before you start, or the bell button while the timer runs." } }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ SETUP ============ -->
+  <main id="setup" class="setup">
+    <h1 class="sr-only">Focus Timer — a free fullscreen visual countdown timer</h1>
+    <div class="hero">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Focus</div>
+      <div class="top-hint">Fullscreen timer</div>
+    </header>
+
+    <section class="panel" aria-label="Timer setup">
+
+      <div class="block">
+        <div class="label"><span>Duration</span></div>
+        <div class="time" role="group" aria-label="Custom duration">
+          <label class="unit">
+            <input id="in-h" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="00" aria-label="Hours" data-max="23">
+            <span>hours</span>
+          </label>
+          <span class="colon" aria-hidden="true">:</span>
+          <label class="unit">
+            <input id="in-m" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="25" aria-label="Minutes" data-max="59">
+            <span>min</span>
+          </label>
+          <span class="colon" aria-hidden="true">:</span>
+          <label class="unit">
+            <input id="in-s" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" value="00" aria-label="Seconds" data-max="59">
+            <span>sec</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label"><span>Presets</span></div>
+        <div class="presets" role="group" aria-label="Preset durations">
+          <button class="preset" data-min="5">5<small>m</small></button>
+          <button class="preset" data-min="10">10<small>m</small></button>
+          <button class="preset" data-min="15">15<small>m</small></button>
+          <button class="preset" data-min="20">20<small>m</small></button>
+          <button class="preset" data-min="25">25<small>m</small></button>
+          <button class="preset" data-min="30">30<small>m</small></button>
+          <button class="preset" data-min="45">45<small>m</small></button>
+          <button class="preset" data-min="60">60<small>m</small></button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label"><span>Color</span><span id="hex" class="hex">#F5D90A</span></div>
+        <div class="swatches" role="group" aria-label="Background color">
+          <button class="swatch" data-color="#F5D90A" style="--sw:#F5D90A" aria-label="Yellow"></button>
+          <button class="swatch" data-color="#3D7BFF" style="--sw:#3D7BFF" aria-label="Blue"></button>
+          <button class="swatch" data-color="#22C55E" style="--sw:#22C55E" aria-label="Green"></button>
+          <button class="swatch" data-color="#FF7A1A" style="--sw:#FF7A1A" aria-label="Orange"></button>
+          <button class="swatch" data-color="#FF5CA8" style="--sw:#FF5CA8" aria-label="Pink"></button>
+          <button class="swatch" data-color="#8B5CF6" style="--sw:#8B5CF6" aria-label="Purple"></button>
+          <button class="swatch" data-color="#EF4444" style="--sw:#EF4444" aria-label="Red"></button>
+          <label class="swatch swatch-custom" id="custom-swatch" title="Custom color">
+            <input id="custom-color" type="color" value="#F5D90A" aria-label="Custom color">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="row-title">Completion sound</div>
+          <div class="row-sub">A soft chime when time is up</div>
+        </div>
+        <button id="sound-toggle" class="switch" role="switch" aria-checked="true" aria-label="Completion sound"><span></span></button>
+      </div>
+
+      <button id="start" class="start">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.52.85l10.4-6.5a1 1 0 0 0 0-1.7L9.52 4.65A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg>
+        Start Timer
+      </button>
+
+      <p class="keys"><kbd>Space</kbd> pause &nbsp;·&nbsp; <kbd>R</kbd> reset &nbsp;·&nbsp; <kbd>F</kbd> fullscreen &nbsp;·&nbsp; <kbd>M</kbd> sound</p>
+    </section>
+    </div>
+
+    <!-- Readable content for search engines and curious visitors (below the fold) -->
+    <section class="about" aria-labelledby="about-title" style="display: none;">
+      <h2 id="about-title">A visual timer for deep focus</h2>
+      <p>Focus Timer is a free, fullscreen countdown timer. Choose a duration and a color, press Start, and the color slowly shrinks from right to left as time passes. When the screen is fully black, your session is done. You can see how much time is left at a glance, without reading numbers.</p>
+
+      <h2>How to use it</h2>
+      <ol>
+        <li>Pick a preset (5 to 60 minutes) or type your own hours, minutes and seconds.</li>
+        <li>Choose a background color, or make your own with the color picker.</li>
+        <li>Press <strong>Start Timer</strong>. The timer opens fullscreen, and in landscape on phones.</li>
+      </ol>
+
+      <h2>Questions</h2>
+      <details>
+        <summary>Is Focus Timer free?</summary>
+        <p>Yes. It is completely free, with no sign-up and nothing to install.</p>
+      </details>
+      <details>
+        <summary>Can I use it as a Pomodoro timer?</summary>
+        <p>Yes. Pick the 25 minute preset for a focus block and the 5 minute preset for a break.</p>
+      </details>
+      <details>
+        <summary>Does it work on my phone?</summary>
+        <p>Yes. On Android it goes fullscreen and turns to landscape automatically. On iPhone, rotate your phone sideways for the landscape view.</p>
+      </details>
+      <details>
+        <summary>Does the timer stay accurate if I switch tabs?</summary>
+        <p>Yes. The timer is based on the clock, not on counting ticks, so it stays correct when you pause, switch tabs or lock your screen.</p>
+      </details>
+      <details>
+        <summary>Can I turn off the sound?</summary>
+        <p>Yes. Use the Completion sound switch before you start, or the bell button while the timer runs.</p>
+      </details>
+    </section>
+
+    <footer style="display: none;" class="footer">Focus Timer · Free fullscreen countdown timer</footer>
+  </main>
+
+  <!-- ============ TIMER STAGE ============ -->
+  <div id="stage" class="stage" hidden>
+    <div class="layer layer-base">
+      <div class="clock" aria-hidden="true"><span class="h">00</span><span class="sep">:</span><span class="m">00</span><span class="sep">:</span><span class="s">00</span></div>
+    </div>
+    <div id="fill" class="layer layer-fill">
+      <div class="clock" aria-hidden="true"><span class="h">00</span><span class="sep">:</span><span class="m">00</span><span class="sep">:</span><span class="s">00</span></div>
+    </div>
+    <div id="sr-time" class="sr-only" role="timer"></div>
+
+    <div class="status" aria-live="polite">Paused</div>
+
+    <div id="controls" class="controls" role="toolbar" aria-label="Timer controls">
+      <button class="ctrl" data-act="reset" aria-label="Reset" title="Reset (R)">
+        <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8.3"/><path d="M3 3.5v4.8h4.8"/></svg>
+      </button>
+      <button class="ctrl ctrl-primary" data-act="toggle" aria-label="Pause" title="Pause / Resume (Space)">
+        <svg class="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5" width="4" height="14" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.5" y="5" width="4" height="14" rx="1.2" fill="currentColor" stroke="none"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.52.85l10.4-6.5a1 1 0 0 0 0-1.7L9.52 4.65A1 1 0 0 0 8 5.5z" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button class="ctrl" data-act="sound" aria-label="Completion sound" aria-pressed="true" title="Sound (M)">
+        <svg class="i-on" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <svg class="i-off" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M3 3l18 18"/></svg>
+      </button>
+      <button class="ctrl" data-act="fs" aria-label="Exit fullscreen" title="Fullscreen (F)">
+        <svg class="i-expand" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg class="i-compress" viewBox="0 0 24 24"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+      </button>
+      <button class="ctrl" data-act="close" aria-label="Back to setup" title="Back to setup">
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="done" aria-live="assertive">
+      <span class="done-dot" aria-hidden="true"></span>
+      <h2>Time's Up</h2>
+      <p id="done-sub">Focus session complete</p>
+      <div class="done-actions">
+        <button class="btn btn-light" data-act="restart">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8.3"/><path d="M3 3.5v4.8h4.8"/></svg>
+          Restart
+        </button>
+        <button class="btn btn-ghost" data-act="close">New timer</button>
+      </div>
+    </div>
+
+    <div id="rotate" class="rotate" hidden>
+      <div class="rotate-phone" aria-hidden="true"></div>
+      <h3>Rotate your phone</h3>
+      <p>Turn to landscape for the full-screen timer.</p>
+      <button class="btn btn-ghost" data-act="dismiss-rotate">Continue in portrait</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
