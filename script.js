@@ -574,6 +574,33 @@
 
   if (!fsSupported) el.btnFs.hidden = true; // e.g. iPhone Safari
 
+  /* ---------------- iPhone: Home Screen tip ----------------
+     iPhone browsers (all of them use Safari's engine) don't allow websites
+     to go fullscreen. Opened from the Home Screen, the site runs with no
+     browser bars, so we point iPhone visitors there. */
+
+  const TIP_KEY = 'focus-timer:ios-tip';
+  const isIPhone = /iPhone|iPod/.test(navigator.userAgent);
+  const isHomeScreenApp = navigator.standalone === true ||
+    matchMedia('(display-mode: standalone)').matches ||
+    matchMedia('(display-mode: fullscreen)').matches;
+  const iosTip = $('#ios-tip');
+  const iosSheet = $('#ios-sheet');
+
+  let tipDismissed = false;
+  try { tipDismissed = localStorage.getItem(TIP_KEY) === 'dismissed'; } catch { /* ignore */ }
+  if (isIPhone && !isHomeScreenApp && !fsSupported && !tipDismissed) iosTip.hidden = false;
+
+  const openSheet = () => { iosSheet.hidden = false; $('#ios-sheet-close').focus(); };
+  const closeSheet = () => { iosSheet.hidden = true; };
+  $('#ios-tip-how').addEventListener('click', openSheet);
+  $('#ios-sheet-close').addEventListener('click', closeSheet);
+  iosSheet.addEventListener('click', (e) => { if (e.target === iosSheet) closeSheet(); });
+  $('#ios-tip-close').addEventListener('click', () => {
+    iosTip.hidden = true;
+    try { localStorage.setItem(TIP_KEY, 'dismissed'); } catch { /* ignore */ }
+  });
+
   el.start.addEventListener('click', startTimer);
 
   /* ---------------- Keyboard ---------------- */

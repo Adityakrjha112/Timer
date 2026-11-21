@@ -164,6 +164,16 @@
         Start Timer
       </button>
 
+      <!-- iPhone only: websites can't go fullscreen there, but a Home Screen app can -->
+      <div id="ios-tip" class="ios-tip" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M8 11H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-2"/></svg>
+        <p>On iPhone, add Focus to your Home Screen for true fullscreen.</p>
+        <button id="ios-tip-how" class="ios-tip-how">How?</button>
+        <button id="ios-tip-close" class="ios-tip-close" aria-label="Dismiss tip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
       <p class="keys"><kbd>Space</kbd> pause &nbsp;·&nbsp; <kbd>R</kbd> reset &nbsp;·&nbsp; <kbd>F</kbd> fullscreen &nbsp;·&nbsp; <kbd>M</kbd> sound</p>
     </section>
     </div>
@@ -257,6 +267,25 @@
       <h3>Rotate your phone</h3>
       <p>Turn to landscape for the full-screen timer.</p>
       <button class="btn btn-ghost" data-act="dismiss-rotate">Continue in portrait</button>
+    </div>
+  </div>
+
+  <!-- ============ iPHONE HOME SCREEN GUIDE ============ -->
+  <div id="ios-sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="ios-sheet-title" hidden>
+    <div class="sheet-panel">
+      <h3 id="ios-sheet-title">Fullscreen on iPhone</h3>
+      <p class="sheet-lead">Apple doesn't let websites go fullscreen on iPhone. Add Focus to your Home Screen and it opens like an app, with no browser bars.</p>
+      <ol class="steps">
+        <li>
+          <span class="step-n">1</span>
+          <span>Tap the <strong>Share</strong> button
+            <svg class="inline-ico" viewBox="0 0 24 24" aria-label="Share icon"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M8 11H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-2"/></svg>.
+            In Safari it's in the toolbar or under the <strong>•••</strong> menu. In Chrome it's next to the address bar.</span>
+        </li>
+        <li><span class="step-n">2</span><span>Scroll down and tap <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</span></li>
+        <li><span class="step-n">3</span><span>Open <strong>Focus</strong> from your Home Screen and turn your phone sideways.</span></li>
+      </ol>
+      <button id="ios-sheet-close" class="btn btn-light sheet-btn">Got it</button>
     </div>
   </div>
 

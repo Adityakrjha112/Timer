@@ -686,6 +686,98 @@ kbd {
   100% { transform: rotate(0deg); }
 }
 
+/* ---------- iPhone Home Screen tip + guide ---------- */
+
+.ios-tip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: -20px;
+  padding: 12px 8px 12px 16px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.ios-tip > svg { flex: none; width: 20px; height: 20px; color: var(--text); }
+.ios-tip p { flex: 1; }
+
+.ios-tip-how {
+  flex: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ios-tip-close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--muted);
+}
+.ios-tip-close svg { width: 16px; height: 16px; }
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: fade-in 0.25s var(--ease) both;
+}
+
+.sheet-panel {
+  width: 100%;
+  max-width: 520px;
+  padding: 28px 24px max(24px, calc(env(safe-area-inset-bottom) + 12px));
+  border-radius: 28px 28px 0 0;
+  background: #161618;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  animation: sheet-up 0.4s var(--ease-out) both;
+}
+
+.sheet-panel h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+.sheet-lead { margin-top: 8px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+
+.steps { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 16px; font-size: 15px; line-height: 1.5; }
+.steps li { display: flex; gap: 14px; align-items: flex-start; }
+.steps strong { font-weight: 600; }
+
+.step-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.inline-ico { display: inline-block; width: 18px; height: 18px; vertical-align: -3px; }
+.sheet-btn { width: 100%; }
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+
 /* ---------- Small landscape (phones) ---------- */
 
 @media (orientation: landscape) and (max-height: 500px) {
